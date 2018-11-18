@@ -1,3 +1,5 @@
+# .zshrc config for WSL
+unsetopt BG_NICE
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=$HOME/bin:/usr/local/bin:/sbin:/usr/sbin:$PATH
@@ -95,21 +97,24 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+source /home/anonymous/antigen.zsh
 
-source ~/.zplug/init.zsh
+# Load the oh-my-zsh's library.
+antigen use oh-my-zsh
 
-export NVM_LAZY_LOAD=true
+# Bundles
+antigen bundle git
+antigen bundle command-not-found
+antigen bundle mafredri/zsh-async
+antigen bundle sindresorhus/pure
+antigen bundle lukechilds/zsh-nvm
 
-zplug "lukechilds/zsh-nvm"
-zplug "mafredri/zsh-async", from:github
-zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
+# Syntax highlighting bundle.
+antigen bundle zsh-users/zsh-syntax-highlighting
 
-# Then, source plugins and add commands to $PATH
-zplug load --verbose
 
-export PATH=/snap/bin:$PATH
+# Tell Antigen that you're done.
+antigen apply
 
-#If running Gnome
-alias glogout="gnome-session-quit"
-alias gshutdown="shutdown -h now"
+# set default path to home path
+cd ~
